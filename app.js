@@ -124,9 +124,16 @@ function countUp(el) {
 
 /* ═════════════ Speech bubble ═════════════ */
 const bubble = $('#bubble');
+if (matchMedia('(pointer: coarse)').matches && $('#tapWord')) $('#tapWord').textContent = 'tap';
 let bubbleTimer = 0;
+// phones: no automatic lines while scrolling (the bubble would cover the panels); taps still talk
+const isPhone = () => innerWidth <= 860;
+let sayY = 0;
+addEventListener('scroll', () => {
+  if (isPhone() && Math.abs(scrollY - sayY) > 40) { bubble.classList.remove('is-on'); clearTimeout(bubbleTimer); }
+}, { passive: true });
 function say(text, ms = 3800) {
-  bubble.textContent = text;
+  bubble.textContent = text; sayY = scrollY;
   bubble.classList.add('is-on');
   clearTimeout(bubbleTimer);
   bubbleTimer = setTimeout(() => bubble.classList.remove('is-on'), ms);
@@ -251,7 +258,7 @@ function updateChrome(t, dt) {
     hudStage.textContent = stations[idx].dataset.stage;
     const navIdx = idx >= 7 ? idx - 4 : idx >= 6 ? 2 : idx >= 2 ? 1 : idx >= 1 ? 0 : -1;
     navAs.forEach((a, i) => a.classList.toggle('is-active', i === navIdx));
-    if (lastStation !== -1) { say(stationLines[idx]); sfx.chord(); }
+    if (lastStation !== -1) { if (!isPhone()) say(stationLines[idx]); sfx.chord(); }
     lastStation = idx;
   }
   rows += dt * (2400 + t * 42000);
@@ -752,7 +759,7 @@ function buildScene() {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     if (w > 860) camera.setViewOffset(w, h, -w * .19, 0, w, h);
-    else camera.setViewOffset(w, h, 0, h * .27, w, h);
+    else camera.setViewOffset(w, h, w * .16, h * .25, w, h);
     camera.fov = w > 860 ? 38 : 48;
     camera.updateProjectionMatrix();
   }
@@ -766,7 +773,18 @@ function buildScene() {
     ndc.set(mouseX, mouseY);
   }, { passive: true });
   let waveT = 0;
-  canvas.addEventListener('click', () => { if (hover) { wave(); say(clickLines[clickIdx++ % clickLines.length], 3600); } });
+  canvas.addEventListener('click', e => {
+    // raycast at the tap point itself (touch screens have no hover state)
+    const p = new THREE.Vector2(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1));
+    ray.setFromCamera(p, camera);
+    let hit = ray.intersectObject(avatar.root, true).length > 0;
+    if (!hit) { // forgiving radius around the avatar for fingers
+      const c = new THREE.Vector3().setFromMatrixPosition(avatar.torso.matrixWorld).project(camera);
+      const dx = (c.x - p.x) * innerWidth / 2, dy = (c.y - p.y) * innerHeight / 2;
+      hit = Math.hypot(dx, dy) < (innerWidth <= 860 ? 70 : 40);
+    }
+    if (hit) { wave(); say(clickLines[clickIdx++ % clickLines.length], 3600); }
+  });
   function wave() { waveT = 1.8; sfx.blip(740, .14, 'triangle', .05); }
   function pulse() { pulseT = 1; }
 
@@ -839,7 +857,7 @@ function buildScene() {
     // camera: side-on, a little ahead, looking back at the avatar
     frame(u, CF);
     const mob = innerWidth <= 860;
-    const dist = mob ? 7.4 : 7.6;
+    const dist = mob ? 9 : 7.6;
     camPos.copy(CF.p).addScaledVector(CF.r, dist).addScaledVector(CF.u, 2.3 + (mob ? .3 : 0)).addScaledVector(CF.t, 2.4);
     // camera is locked to the same t as the avatar, so pipe, avatar and panels move together;
     // only the small pointer parallax is smoothed
@@ -882,7 +900,17 @@ function buildScene() {
     _v.setFromMatrixPosition(A.head.matrixWorld).addScaledVector(AF.u, .45);
     _v.project(camera);
     const bx = (_v.x * .5 + .5) * innerWidth, by = (-_v.y * .5 + .5) * innerHeight;
-    bubble.style.transform = `translate(${Math.round(Math.min(bx + 26, innerWidth - bubble.offsetWidth - 12))}px, ${Math.round(by - bubble.offsetHeight)}px)`;
+    const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+    let tx, ty;
+    if (mob) {
+      // phones: sit beside the head, never under the nav bar
+      tx = Math.min(bx + 34, innerWidth - bw - 10);
+      ty = clamp(by - bh * .2, 70, innerHeight - bh - 10);
+    } else {
+      tx = Math.min(bx + 26, innerWidth - bw - 12);
+      ty = Math.max(70, by - bh);
+    }
+    bubble.style.transform = `translate(${Math.round(Math.max(10, tx))}px, ${Math.round(ty)}px)`;
 
     updateChrome(tCur, dt);
   }
