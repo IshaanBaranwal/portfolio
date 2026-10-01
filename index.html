@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ishaan Baranwal — Data Engineering, AI Automation &amp; Analytics</title>
+  <meta name="description" content="Ishaan Baranwal turns ambiguous business problems into shipped systems: cloud data warehouses, ETL pipelines, AI voice agents and analytics. USC MS Business Analytics.">
+  <meta property="og:title" content="Ishaan Baranwal — Data Engineering, AI Automation & Analytics">
+  <meta property="og:description" content="Follow Ishaan's avatar down a live data pipeline: Paytm, USC, Living Advantage and the systems he has shipped.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./assets/profile.jpg">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+
+  <script>
+    (function () {
+      var t = null;
+
+      if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./style.css">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Ishaan Baranwal","jobTitle":"Data Management Coordinator, AI Automation Engineer","worksFor":{"@type":"Organization","name":"Living Advantage Inc"},"alumniOf":["University of Southern California","Delhi Technological University"],"email":"mailto:ishbaran21@gmail.com","url":"https://www.linkedin.com/in/ishaan-baranwal"}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- 3D stage -->
+  <div class="stage" aria-hidden="true">
+    <canvas id="scene"></canvas>
+    <div class="stage__scrim"></div>
+  </div>
+  <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
+  <div class="loader" id="loader"><span class="loader__bar"></span><span class="loader__text">booting pipeline…</span></div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo" aria-label="Ishaan Baranwal, back to top">
+        <svg viewBox="0 0 40 40" width="30" height="30" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="37" height="37" rx="10" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M12 11v18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path d="M19 11h6a4.5 4.5 0 0 1 0 9h-6m0 0h7a4.5 4.5 0 0 1 0 9h-7V11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="11" r="2.4" fill="var(--pk-1)"/>
+          <circle cx="31" cy="24.5" r="2.4" fill="var(--pk-2)"/>
+        </svg>
+        <span>Ishaan Baranwal</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Journey</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" id="soundBtn" aria-pressed="false" aria-label="Turn sound effects on" title="Sound effects">
+          <svg class="i-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="i-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+        </button>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
+          <svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <a href="./assets/Ishaan_Baranwal_Resume.pdf" class="btn btn--solid btn--sm" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume
+        </a>
+        <button class="icon-btn nav__burger" id="burger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pipeline rail -->
+  <aside class="rail" aria-label="Pipeline progress">
+    <div class="rail__track"><div class="rail__fill" id="railFill"></div></div>
+    <ol class="rail__list" id="railList"></ol>
+  </aside>
+
+  <!-- Telemetry HUD -->
+  <div class="hud" aria-hidden="true">
+    <div><span class="hud__k">stage</span><span class="hud__v" id="hudStage">source</span></div>
+    <div><span class="hud__k">rows processed</span><span class="hud__v" id="hudRows">0</span></div>
+    <div><span class="hud__k">latency</span><span class="hud__v" id="hudLat">12ms</span></div>
+  </div>
+
+  <main id="main">
+
+    <!-- 00 SOURCE -->
+    <section class="station hero" id="top" data-station="0" data-stage="source" data-label="Source">
+      <div class="panel">
+        <p class="eyebrow"><span class="eyebrow__n">00</span> Source · Los Angeles, CA</p>
+        <h1 class="hero__title">I turn messy data into <span class="hl">systems that ship.</span></h1>
+        <p class="hero__lede">
+          Builder and analyst working across data engineering, workforce automation, full-stack development and applied AI. I design cloud data warehouses, build ETL pipelines, and use generative AI tools every day to ship in a fraction of the usual time.
+        </p>
+        <div class="hero__ctas">
+          <a href="#experience" class="btn btn--solid">
+            Follow the pipeline
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+        </div>
+        <p class="hero__hint">
+          <span class="kbd">scroll</span> to move my avatar down the pipeline · <span class="kbd">click</span> him to say hi
+        </p>
+      </div>
+    </section>
+
+    <!-- 01 INGEST -->
+    <section class="station" id="about" data-station="1" data-stage="ingest" data-label="Ingest">
+      <div class="panel">
+        <p class="eyebrow"><span class="eyebrow__n">01</span> Ingest · Background</p>
+        <h2 class="section-title">The real one, before the pixels.</h2>
+        <div class="about">
+          <figure class="about__photo">
+            <img src="./assets/profile.webp" alt="Ishaan Baranwal in a navy suit and patterned tie, smiling" width="640" height="640" loading="lazy">
+            <figcaption>Original · 1 of 1</figcaption>
+          </figure>
+          <div class="about__text">
+            <p>I started as a software engineer on a platform processing <strong>100M+ transactions a month</strong> at Paytm. Today I own data infrastructure end to end at Living Advantage: the warehouse, the pipelines, the automations and the AI agents on top of them.</p>
+            <p>I like problems that start vague and end as something running in production.</p>
+          </div>
+        </div>
+        <div class="edu">
+          <div class="edu__item">
+            <span class="edu__yr">2024 — 2026</span>
+            <span class="edu__school">University of Southern California</span>
+            <span class="edu__deg">MS, Business Analytics · GPA 3.7 · Dean's List</span>
+          </div>
+          <div class="edu__item">
+            <span class="edu__yr">2018 — 2022</span>
+            <span class="edu__school">Delhi Technological University</span>
+            <span class="edu__deg">B.Tech, Computer Science · GPA 3.44</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02–05 TRANSFORM (journey) -->
+    <div id="experience" class="journey-anchor"></div>
+
+    <section class="station" data-station="2" data-stage="transform" data-label="Living Adv.">
+      <article class="panel job">
+        <p class="eyebrow"><span class="eyebrow__n">02</span> Transform · Feb 2026 — Present</p>
+        <h2 class="job__role">Data Management Coordinator, AI Automation Engineer</h2>
+        <p class="job__org">Living Advantage Inc · Los Angeles</p>
+        <div class="metrics">
+          <div class="metric"><span class="metric__n" data-count="20" data-suffix="K">0</span><span class="metric__l">contacts synced by ETL</span></div>
+          <div class="metric"><span class="metric__n" data-count="90" data-suffix="%">0</span><span class="metric__l">less manual payroll work</span></div>
+          <div class="metric"><span class="metric__n" data-count="5">0</span><span class="metric__l">production systems owned</span></div>
+        </div>
+        <ul class="job__list">
+          <li>Leading a Google BigQuery warehouse on GCP that consolidates Salesforce and Apricot CRM data and replaces spreadsheet reporting.</li>
+          <li>Built SQL ETL that migrates and continuously syncs ~20,000 contacts and ~2,000 accounts, with multi-stage validation.</li>
+          <li>Designed and shipped eLockBox, plus an autonomous AI voice agent for inbound and outbound calls.</li>
+          <li>Use Claude Code daily, cutting internal tool build time from about 5 days to under 1.</li>
+        </ul>
+        <ul class="tags"><li>BigQuery</li><li>GCP</li><li>Next.js</li><li>n8n</li><li>Twilio</li><li>ElevenLabs</li></ul>
+      </article>
+    </section>
+
+    <section class="station" data-station="3" data-stage="transform" data-label="Paytm">
+      <article class="panel job">
+        <p class="eyebrow"><span class="eyebrow__n">03</span> Transform · Jun 2022 — Feb 2024</p>
+        <h2 class="job__role">Software Development Engineer</h2>
+        <p class="job__org">Paytm · Delhi, India</p>
+        <div class="metrics">
+          <div class="metric"><span class="metric__n" data-count="100" data-suffix="M+">0</span><span class="metric__l">monthly transactions monitored</span></div>
+          <div class="metric"><span class="metric__n" data-count="50" data-suffix="%">0</span><span class="metric__l">faster issue resolution</span></div>
+          <div class="metric"><span class="metric__n" data-count="2" data-prefix="$" data-suffix="M+">0</span><span class="metric__l">documented revenue impact</span></div>
+        </div>
+        <ul class="job__list">
+          <li>Built end-to-end ETL pipelines in Python and SQL to ingest, clean and transform large-scale transaction data for analytics APIs and KPI frameworks.</li>
+          <li>Owned real-time monitoring dashboards on MongoDB, DynamoDB and Redshift, with proactive alerting.</li>
+          <li>Maintained CI/CD pipelines (Jenkins, Kafka) and supported Kubernetes deployments.</li>
+          <li>Analyzed loan repayment and risk data for the Lending team, and acted as the bridge between data scientists and data engineers on modeling standards.</li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>SQL</li><li>Kafka</li><li>Redshift</li><li>DynamoDB</li><li>Kubernetes</li></ul>
+      </article>
+    </section>
+
+    <section class="station" data-station="4" data-stage="transform" data-label="USC">
+      <article class="panel job">
+        <p class="eyebrow"><span class="eyebrow__n">04</span> Transform · Jan 2026 — May 2026</p>
+        <h2 class="job__role">Teaching Assistant, PPDE 613</h2>
+        <p class="job__org">University of Southern California · Los Angeles</p>
+        <div class="metrics">
+          <div class="metric"><span class="metric__n" data-count="70" data-suffix="+">0</span><span class="metric__l">graduate students mentored</span></div>
+        </div>
+        <ul class="job__list">
+          <li>Coached students in advanced SQL, Python and Tableau, and in explaining technical findings clearly to non-technical stakeholders.</li>
+        </ul>
+        <ul class="tags"><li>SQL</li><li>Python</li><li>Tableau</li><li>Data storytelling</li></ul>
+      </article>
+    </section>
+
+    <section class="station" data-station="5" data-stage="transform" data-label="Almoayyed">
+      <article class="panel job">
+        <p class="eyebrow"><span class="eyebrow__n">05</span> Transform · Apr 2024 — Jun 2024</p>
+        <h2 class="job__role">Business Analysis Intern</h2>
+        <p class="job__org">Almoayyed Computers · Manama, Bahrain</p>
+        <div class="metrics">
+          <div class="metric"><span class="metric__n" data-count="15" data-suffix="+">0</span><span class="metric__l">automated Power BI dashboards</span></div>
+          <div class="metric"><span class="metric__n" data-count="25" data-suffix="%">0</span><span class="metric__l">better reporting efficiency</span></div>
+        </div>
+        <ul class="job__list">
+          <li>Led discovery workshops with enterprise stakeholders to define data and reporting requirements for CRM sales dashboards.</li>
+          <li>Turned those requirements into interactive Power BI reports that improved data visibility across sales teams.</li>
+        </ul>
+        <ul class="tags"><li>Power BI</li><li>Requirements</li><li>CRM analytics</li></ul>
+      </article>
+    </section>
+
+    <!-- 06 MODEL -->
+    <section class="station" id="skills" data-station="6" data-stage="model" data-label="Skills">
+      <div class="panel panel--wide">
+        <p class="eyebrow"><span class="eyebrow__n">06</span> Model · Skills</p>
+        <h2 class="section-title">Query my stack.</h2>
+        <p class="muted">Pick a table, or type your own filter. Try <code>python</code>, <code>cloud</code> or <code>ai</code>.</p>
+
+        <div class="console" id="console">
+          <div class="console__bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="console__title">ishaan.skills — bigquery</span>
+          </div>
+          <div class="console__tabs" role="tablist" id="consoleTabs"></div>
+          <form class="console__query" id="consoleForm" autocomplete="off">
+            <label for="consoleInput" class="sr-only">Filter skills</label>
+            <span class="console__prompt">sql&gt;</span>
+            <span class="console__static" id="consoleStatic">SELECT skill FROM ishaan.stack WHERE</span>
+            <input id="consoleInput" class="console__input" type="text" spellcheck="false" placeholder="category = 'all'">
+            <button type="submit" class="console__run">Run ⏎</button>
+          </form>
+          <div class="console__out" id="consoleOut" aria-live="polite"></div>
+          <div class="console__foot" id="consoleFoot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 SERVE -->
+    <section class="station" id="projects" data-station="7" data-stage="serve" data-label="Projects">
+      <div class="panel panel--wide">
+        <p class="eyebrow"><span class="eyebrow__n">07</span> Serve · Shipped work</p>
+        <h2 class="section-title">Things running in production.</h2>
+
+        <div class="projects">
+          <button class="proj" data-proj="elockbox" type="button">
+            <span class="proj__id">svc-01</span>
+            <span class="proj__name">eLockBox</span>
+            <span class="proj__desc">A secure document platform where at-risk youth can store and share sensitive documents with case managers and housing providers.</span>
+            <span class="proj__stack">Next.js · React · TypeScript · S3</span>
+            <span class="proj__status"><i></i>live</span>
+          </button>
+          <button class="proj" data-proj="voice" type="button">
+            <span class="proj__id">svc-02</span>
+            <span class="proj__name">AI Voice Agent</span>
+            <span class="proj__desc">An autonomous agent that answers and places phone calls on its own, scoped from a vague automation need into a production feature.</span>
+            <span class="proj__stack">Twilio · ElevenLabs · n8n</span>
+            <span class="proj__status"><i></i>live</span>
+          </button>
+          <button class="proj" data-proj="warehouse" type="button">
+            <span class="proj__id">svc-03</span>
+            <span class="proj__name">BigQuery Warehouse</span>
+            <span class="proj__desc">A single queryable model built from Salesforce and Apricot CRM, plus the organization's first KPI dashboards.</span>
+            <span class="proj__stack">BigQuery · GCP · SQL</span>
+            <span class="proj__status"><i></i>building</span>
+          </button>
+          <button class="proj" data-proj="payroll" type="button">
+            <span class="proj__id">svc-04</span>
+            <span class="proj__name">Payroll Autopilot</span>
+            <span class="proj__desc">Timecard extraction and payroll-sheet generation that cut manual processing by about 90%.</span>
+            <span class="proj__stack">QuickBooks · Apps Script · PowerShell · n8n</span>
+            <span class="proj__status"><i></i>live</span>
+          </button>
+        </div>
+
+        <h3 class="sub">Earlier work</h3>
+        <ul class="archive">
+          <li><span>Healthcare readmissions &amp; ED operations analysis</span><span class="muted">Tableau · Excel</span></li>
+          <li><span>Uber rides demand &amp; pricing analysis (100K+ rides)</span><span class="muted">Python</span></li>
+          <li><span>Soccer analytics platform, A/B &amp; hypothesis testing</span><span class="muted">Python · Stats</span></li>
+          <li><a href="https://ieeexplore.ieee.org/document/9848200" target="_blank" rel="noopener noreferrer">IEEE paper: KNN-based hybrid models for geolocation problems ↗</a><span class="muted">2022</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 08 OUTPUT -->
+    <section class="station contact" id="contact" data-station="8" data-stage="output" data-label="Contact">
+      <div class="panel">
+        <p class="eyebrow"><span class="eyebrow__n">08</span> Output · End of pipeline</p>
+        <h2 class="section-title">Have a messy problem? Send it down the pipe.</h2>
+        <p class="muted">I'm open to roles in data engineering, analytics and AI automation, and to interesting side projects.</p>
+        <div class="contact__links">
+          <a class="clink" href="mailto:ishbaran21@gmail.com">
+            <span class="clink__k">email</span><span class="clink__v">ishbaran21@gmail.com</span>
+          </a>
+          <a class="clink" href="https://www.linkedin.com/in/ishaan-baranwal" target="_blank" rel="noopener noreferrer">
+            <span class="clink__k">linkedin</span><span class="clink__v">/in/ishaan-baranwal ↗</span>
+          </a>
+          <a class="clink" href="tel:+12139941551">
+            <span class="clink__k">phone</span><span class="clink__v">+1 (213) 994-1551</span>
+          </a>
+          <a class="clink" href="./assets/Ishaan_Baranwal_Resume.pdf" download>
+            <span class="clink__k">resume</span><span class="clink__v">Ishaan_Baranwal_Resume.pdf ↓</span>
+          </a>
+        </div>
+        <button class="btn btn--ghost replay" id="replay" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          Replay the pipeline
+        </button>
+        <footer class="foot">© 2026 Ishaan Baranwal · Avatar hand-built in Three.js</footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project modal -->
+  <dialog class="modal" id="modal">
+    <form method="dialog"><button class="modal__x" aria-label="Close">✕</button></form>
+    <div id="modalBody"></div>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
